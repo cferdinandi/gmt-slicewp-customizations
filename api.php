@@ -97,7 +97,7 @@
 			return new WP_REST_Response(array(
 				'code' => 202,
 				'status' => 'pending',
-				'message' => 'Affiliate application is awaiting approval.',
+				'message' => 'Affiliate application is awaiting approval. If you have any questions before then, please email ' . gmt_slicewp_get_email() . '.',
 			), 200);
 		}
 
@@ -121,6 +121,7 @@
 				'slug' => slicewp_get_affiliate_meta($affiliate->id, 'custom_slug', true),
 				'state' => slicewp_get_affiliate_meta($affiliate->id, 'state', true),
 				'country' => slicewp_get_affiliate_meta($affiliate->id, 'country', true),
+				'admin' => gmt_slicewp_get_email(),
 				'commissions' => $commissions,
 			)
 		), 200);
