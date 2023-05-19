@@ -5,7 +5,7 @@
 	 * @return string The email link
 	 */
 	function gmt_slicewp_get_email () {
-		$email = antispambot(getenv('EMAIL_USER'));
+		$email = antispambot(get_bloginfo('admin_email'));
 		return '<a href="mailto:' . $email . '">' . $email . '</a>';
 	};
 
@@ -43,11 +43,11 @@
 		// Create commission data
 		$commissions = array(
 			'paid' => array(
-				'visits' => 0,
+				'sales' => 0,
 				'total' => 0
 			),
 			'unpaid' => array(
-				'visits' => 0,
+				'sales' => 0,
 				'total' => 0
 			),
 			'total' => array(),
@@ -57,7 +57,7 @@
 
 			// Update paid/unpaid total
 			$status = $commission->get('status');
-			$commissions[$status]['visits']++;
+			$commissions[$status]['sales']++;
 			$commissions[$status]['total'] += floatval($commission->get('amount'));
 
 			// Get product details
@@ -247,7 +247,7 @@
 				'state' => sanitize_text_field($params['state']),
 				'country' => sanitize_text_field($params['country']),
 			);
-			if ($params['custom_slug']) {
+			if (!empty($params['custom_slug'])) {
 				$meta_data['custom_slug'] = sanitize_text_field($params['custom_slug']);
 			}
 
