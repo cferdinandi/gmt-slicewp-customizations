@@ -220,6 +220,18 @@
 			), 500);
 		}
 
+		// If custom_slug is provided, ensure it's not already in use
+		if (!empty($params['custom_slug'])) {
+			$slug_in_use = slicewp_get_affiliate_by_custom_slug($params['custom_slug']);
+			if (!empty($slug_in_use)) {
+				return new WP_REST_Response(array(
+					'code' => 400,
+					'status' => 'slug_in_use',
+					'message' => 'Your requested affiliate ID is already being used by someone else. Please choose another, or leave that field blank to have one automatically generated for you.',
+				), 400);
+			}
+		}
+
 		// Check if an affiliate already exists
 		$affiliate = slicewp_get_affiliate_by_user_email($request['email']);
 
