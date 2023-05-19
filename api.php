@@ -250,7 +250,7 @@
 			'status' => 'pending',
 		));
 
-		// If created, add meta data and return success
+		// If created, add meta data, send notification email, and return success
 		if ($affiliate_id) {
 
 			// Create meta_data
@@ -265,6 +265,9 @@
 
 			// Add meta_data
 			gmt_slicewp_update_affiliate_meta($affiliate_id, $meta_data);
+
+			// Send the admin notification email
+			slicewp_send_email_notification_admin_new_affiliate_registration($affiliate_id);
 
 			// Return success
 			return gmt_slicewp_get_affiliate_details(slicewp_get_affiliate($affiliate_id));
