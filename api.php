@@ -258,10 +258,8 @@
 				'promotional_methods' => sanitize_text_field($params['promotional_methods']),
 				'state' => sanitize_text_field($params['state']),
 				'country' => sanitize_text_field($params['country']),
+				'custom_slug' => empty($params['custom_slug']) ? slicewp_generate_unique_affiliate_slug() : sanitize_text_field($params['custom_slug']),
 			);
-			if (!empty($params['custom_slug'])) {
-				$meta_data['custom_slug'] = sanitize_text_field($params['custom_slug']);
-			}
 
 			// Add meta_data
 			gmt_slicewp_update_affiliate_meta($affiliate_id, $meta_data);
